@@ -5,13 +5,22 @@ This repo mainly contains the code to obtain the reader-histone interaction matr
 A brief introduction to the files are as follows.
 
 code: `reader-histone interaction matrix and sequence and structural similarity.ipynb`
+
 original histone recognition pairs: `regulator-histone relations_add Flanking Sequences and SMILES.csv`
+
 reader-histone interaction matrix: `mat_reader_histone.csv`
+
 histone mark sequence similarity matrix: `Similarity_histone_mark_sequence.csv`
+
 histone mark structural similarity matrix: `Similarity_histone_mark_structure.csv`
+
 reader domain sequence similarity matrix: Absent so far
+
 histone mark indices: `uniquified_histone_marks.csv`
+
 reader indices: `uniquified_readers.csv`
+
 statistics -- distribution of # of histone marks recognized per reader: `statistics_histone_marks_per_reader.csv`
+
 statistics -- distribution of # of readers recognizing per histone mark: `statistics_readers_per_histone_mark`
 
