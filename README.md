@@ -26,4 +26,4 @@ statistics -- distribution of # of readers recognizing per histone mark: `statis
 
 ### ./similarity docs
 
-todo
+[Requirements](similarity/README.md)
