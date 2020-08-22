@@ -1,10 +1,12 @@
 # Histone recognition
 
-This repo mainly contains the code to obtain the reader-histone interaction matrix and sequence and structural similarity matrices, and the corresponding data and the original data. It also includes statistics for multivalent interactions of histone marks and reader proteins.
+This repo mainly contains the data and code to obtain the reader-histone interaction matrix and sequence and structural similarity matrices, and update the similarity matrices. It also includes statistics for multivalent interactions of histone marks and reader proteins.
 
 A brief introduction to the files are as follows.
 
-code: `reader-histone interaction matrix and sequence and structural similarity.ipynb`
+code to obtain the matrices: `reader-histone interaction matrix and sequence and structural similarity.ipynb`
+
+code to update the similarity matrices: `update_reader_sequence_similarity_matrix.py`, `update_histone_mark_structural_similarity_matrix.py`
 
 original histone recognition pairs: `regulator-histone relations_add Flanking Sequences and SMILES.csv`
 
