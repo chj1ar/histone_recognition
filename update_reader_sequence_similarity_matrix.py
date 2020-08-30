@@ -1,11 +1,11 @@
 #! /Users/cjr/miniconda3/bin/python
 
 '''
-This script aims to update the reader sequence similarity matrix after deleting a domain of a reader. Obviously, the interaction matrix also needs updating. There are 4 arguments for the user to provide.
+This script aims to update the reader sequence similarity matrix after deleting a domain of a reader. Obviously, the interaction matrix also needs updating. Please find the arguments and their roles in the 'global parameters' section.
 
 ### Minimal working example
 
-./update_reader_sequence_similarity_matrix.py O43918 15 35 ../data/reader_sequences/ mat_reader_histone.csv updated_mat_reader_histone.csv temp_Similarity_reader_protein_sequence.csv updated_temp_Similarity_reader_protein_sequence.csv uniquified_readers.csv
+./update_reader_sequence_similarity_matrix.py O43918 15 35 ../data/reader_sequences/ mat_reader_histone.csv updated_mat_reader_histone.csv temp_Similarity_reader_protein_sequence.csv updated_temp_Similarity_reader_protein_sequence.csv uniquified_readers.csv uniquified_histone_marks.csv '../papers/drug-target interaction prediction/PyDTI/histone' weram
 '''
 
 import numpy as np
@@ -29,6 +29,10 @@ reader_sequence_similarity_matrix_file = sys.argv[7]
 updated_reader_sequence_similarity_matrix_file = sys.argv[8]
 
 uniquified_reader_file = sys.argv[9]
+uniquified_histone_mark_file = sys.argv[10]
+
+data_dir = sys.argv[11]
+dataset=sys.argv[12]
 
 
 
@@ -37,7 +41,12 @@ reader_sequence_similarity_matrix = np.loadtxt(reader_sequence_similarity_matrix
 with open(uniquified_reader_file) as f:
     reader = csv.reader(f)
     retrieved_uniquified_readers = dict(reader)
+with open(uniquified_histone_mark_file) as f:
+    reader = csv.reader(f)
+    retrieved_uniquified_histone_marks = dict(reader)
 
+# ensure that data_dir exists
+os.makedirs(os.path.join(data_dir, "datasets/"), exist_ok=True)
 
 ###########
 # Get the truncated sequence
@@ -80,7 +89,9 @@ updated_reader_sequence_similarity_matrix[int(index_to_delete)][int(index_to_del
 # Save
 np.savetxt(updated_reader_sequence_similarity_matrix_file, updated_reader_sequence_similarity_matrix)
 
-
+# Save with names
+updated_reader_sequence_similarity_matrix_df = pd.DataFrame(data=updated_reader_sequence_similarity_matrix, index=list(retrieved_uniquified_readers.keys()), columns=list(retrieved_uniquified_readers.keys()))
+updated_reader_sequence_similarity_matrix_df.to_csv(os.path.join(data_dir, "datasets/", dataset+"_simmat_dg.txt"), sep='\t')
 
 ##########
 # Update the interaction matrix
@@ -93,4 +104,8 @@ updated_interaction_matrix[index_to_delete] = 0
 
 # Save
 np.savetxt(updated_interaction_matrix_file, updated_interaction_matrix)
+
+# Save with names
+updated_interaction_matrix_df = pd.DataFrame(data=updated_interaction_matrix, index=list(retrieved_uniquified_readers.keys()), columns=list(retrieved_uniquified_histone_marks.keys()))
+updated_interaction_matrix_df.to_csv(os.path.join(data_dir, "datasets/", dataset+"_admat_dgc.txt"), sep='\t')
 
